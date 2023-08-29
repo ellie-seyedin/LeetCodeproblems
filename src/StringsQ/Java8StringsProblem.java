@@ -18,10 +18,9 @@ public class Java8StringsProblem {
     }
 
     private static StringBuilder reverseString1(String name) {
-        char[] chars = name.toCharArray();
         StringBuilder reversed = new StringBuilder();
-        for (int i = chars.length - 1; i >= 0; i--) {
-            reversed.append(chars[i]);
+        for (int i = name.length() - 1; i >= 0; i--) {
+            reversed.append(name.charAt(i));
         }
         return reversed;
     }
@@ -82,6 +81,29 @@ public class Java8StringsProblem {
         return duplicate;
     }
 
+    //    private static String remove(String name){
+//        StringBuilder stringBuilder = new StringBuilder();
+//        char remove;
+//        for (int i = 0; i <name.length()-1 ; i++) {
+//            if (name.charAt(i) == remove)
+//
+//        }
+//    }
+    private static String removeDuplicateByJava8(String name) {
+        StringBuilder stringBuilder = new StringBuilder();
+        name.chars().distinct().forEach(c -> stringBuilder.append((char) c));
+        return stringBuilder.toString();
+    }
+
+    private static String removeDuplicateBySet(String name) {
+        Set<Character> hashSet = new LinkedHashSet<>();
+        for (int i = 0; i < name.length(); i++) {
+            hashSet.add(name.charAt(i));
+        }
+             return hashSet.toString();
+    }
+
+
     public static void main(String[] args) {
         String name = "elaheh";
         String name1 = new String("elaheh");
@@ -111,6 +133,11 @@ public class Java8StringsProblem {
         countMap.put('f', 2);
         System.out.println("*********************************************************");
         Integer value = countMap.get('k');
+        String duplication = "elaheh";
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        removeDuplicateBySet(duplication);
+        String dup = "SIIINA";
+        System.out.println(removeDuplicateByJava8(dup));
     }
 
 
@@ -149,32 +176,38 @@ public class Java8StringsProblem {
         assertEquals(reversedSingle, Java8StringsProblem.reverseString2(single));
     }
 
-        @Test
-        public void testFindDuplicateUsingHashMap() {
-            // Test with a string containing duplicate characters
-            String input1 = "hello";
-            Set<Character> expected1 = new HashSet<>();
-            expected1.add('l');
-            expected1.add('o');
-            assertEquals(expected1, Java8StringsProblem.findDuplicateUsingHashMap(input1));
+    @Test
+    public void testFindDuplicateUsingHashMap() {
+        // Test with a string containing duplicate characters
+        String input1 = "hello";
+        Set<Character> expected1 = new HashSet<>();
+        expected1.add('l');
+        expected1.add('o');
+        assertEquals(expected1, Java8StringsProblem.findDuplicateUsingHashMap(input1));
 
-            // Test with a string containing no duplicate characters
-            String input2 = "world";
-            Set<Character> expected2 = new HashSet<>();
-            assertEquals(expected2, Java8StringsProblem.findDuplicateUsingHashMap(input2));
+        // Test with a string containing no duplicate characters
+        String input2 = "world";
+        Set<Character> expected2 = new HashSet<>();
+        assertEquals(expected2, Java8StringsProblem.findDuplicateUsingHashMap(input2));
 
-            // Test with an empty string
-            String input3 = "";
-            Set<Character> expected3 = new HashSet<>();
-            assertEquals(expected3, Java8StringsProblem.findDuplicateUsingHashMap(input3));
+        // Test with an empty string
+        String input3 = "";
+        Set<Character> expected3 = new HashSet<>();
+        assertEquals(expected3, Java8StringsProblem.findDuplicateUsingHashMap(input3));
 
-            // Test with a string containing spaces
-            String input4 = "hello world";
-            Set<Character> expected4 = new HashSet<>();
-            expected4.add('l');
-            expected4.add('o');
-            expected4.add(' ');
-            assertEquals(expected4, Java8StringsProblem.findDuplicateUsingHashMap(input4));
-        }
+        // Test with a string containing spaces
+        String input4 = "hello world";
+        Set<Character> expected4 = new HashSet<>();
+        expected4.add('l');
+        expected4.add('o');
+        expected4.add(' ');
+        assertEquals(expected4, Java8StringsProblem.findDuplicateUsingHashMap(input4));
     }
+
+    @Test
+    public void testRemoveDuplicate() {
+        String actual = "elaheh";
+        String expected = "[e, l, a, h]";
+        assertEquals(expected, Java8StringsProblem.removeDuplicateBySet(actual));
+    }}
 

@@ -95,14 +95,39 @@ public class Java8StringsProblem {
         return stringBuilder.toString();
     }
 
-    private static String removeDuplicateBySet(String name) {
+    private static Set<Character> removeDuplicateBySet(String name) {
         Set<Character> hashSet = new LinkedHashSet<>();
         for (int i = 0; i < name.length(); i++) {
             hashSet.add(name.charAt(i));
         }
-             return hashSet.toString();
+        return hashSet;
     }
 
+    private static String removeDuplicate2(String name) {
+        Set<Character> hashSet = new LinkedHashSet<>();
+        for (int i = 0; i < name.length(); i++) {
+            hashSet.add(name.charAt(i));
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Character character : hashSet) {
+            stringBuilder.append(character);
+        }
+        return stringBuilder.toString();
+    }
+
+    private static Map<Character, Integer> findOccurrenceOfEachCharacter(String txt) {
+        HashMap<Character, Integer> countMap = new HashMap<>();
+        //hello
+        char[] chars = txt.toCharArray();
+        for (char c : chars) {
+            if (!countMap.containsKey(c))
+                countMap.put(c, 1);
+            else
+                countMap.put(c, countMap.get(c) + 1);
+        }
+            return countMap;
+    }
 
     public static void main(String[] args) {
         String name = "elaheh";
@@ -207,7 +232,30 @@ public class Java8StringsProblem {
     @Test
     public void testRemoveDuplicate() {
         String actual = "elaheh";
-        String expected = "[e, l, a, h]";
+        Set<Character> expected = new HashSet<>();
+        expected.add('e');
+        expected.add('l');
+        expected.add('a');
+        expected.add('h');
         assertEquals(expected, Java8StringsProblem.removeDuplicateBySet(actual));
-    }}
+    }
+    @Test
+    public void testRemoveDuplicate1() {
+        String actual = "necessary";
+        String expected = "necsary";
+        assertEquals(expected, Java8StringsProblem.removeDuplicate2(actual));
+    }
 
+    @Test
+    public void testCountMap(){
+        String actual = "occurrence";
+        HashMap<Character, Integer> map = new HashMap<>();
+        map.put('o',1);
+        map.put('c',3);
+        map.put('u',1);
+        map.put('r',2);
+        map.put('e',2);
+        map.put('n',1);
+        assertEquals(map, Java8StringsProblem.findOccurrenceOfEachCharacter(actual));
+    }
+}

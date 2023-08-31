@@ -84,7 +84,6 @@ public class SortingString {
         String txt = "occurrence";
         char replace = 'r';
         String expected = "occu12ence";
-
         assertEquals(expected, SortingString.replaceCharacterWithOccurrence(txt, replace));
     }
 }
